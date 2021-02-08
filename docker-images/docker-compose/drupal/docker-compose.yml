@@ -1,0 +1,24 @@
+version: '3'
+services:
+  drupal:
+    image: drupal:8-apache
+    container_name: drupal_container
+    volumes:
+      - drupal:/var/www/html
+    ports:
+      - "9090:80"
+    networks:
+      - drupal_net
+  postgres:
+    image: postgres:10
+    container_name: postgres_container
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - "$PWD/data:/var/lib/postgresql/data"
+    networks:
+      - drupal_net
+volumes:
+  drupal:
+networks:
+  drupal_net:
